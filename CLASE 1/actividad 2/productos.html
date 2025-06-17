@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Productos</title>
+  <style>
+    table { border-collapse: collapse; width: 50%; margin: 1em 0; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background: #f0f0f0; }
+    #resultado { margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Productos Disponibles</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+      </tr>
+    </thead>
+    <tbody id="tabla-productos"></tbody>
+  </table>
+
+  <h2>Buscar producto por ID</h2>
+  <input type="number" id="buscar-id" placeholder="Ingrese ID">
+  <button onclick="buscarProducto()">Buscar</button>
+  <div id="resultado"></div>
+
+  <script>
+    // Lista de productos (igual que en productos.js)
+    const productos = [
+      { id: 1, nombre: "Laptop", precio: 999 },
+      { id: 2, nombre: "Teléfono", precio: 599 },
+      { id: 3, nombre: "Tablet", precio: 299 }
+    ];
+
+    // Mostrar productos en la tabla
+    const tabla = document.getElementById('tabla-productos');
+    productos.forEach(p => {
+      const fila = document.createElement('tr');
+      fila.innerHTML = `<td>${p.id}</td><td>${p.nombre}</td><td>$${p.precio}</td>`;
+      tabla.appendChild(fila);
+    });
+
+    // Buscar producto por ID
+    function buscarProducto() {
+      const id = parseInt(document.getElementById('buscar-id').value, 10);
+      const resultado = document.getElementById('resultado');
+      resultado.textContent = "Buscando producto...";
+      setTimeout(() => {
+        const producto = productos.find(p => p.id === id);
+        if (producto) {
+          resultado.textContent = `Encontrado: ${producto.nombre} - $${producto.precio}`;
+        } else {
+          resultado.textContent = "Producto no encontrado.";
+        }
+      }, 1500); // Simula delay
+    }
+  </script>
+</body>
